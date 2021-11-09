@@ -8,3 +8,5 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', [validators.InputRequired()])
     remember_me = BooleanField('Remember me ')
     submit = SubmitField('sign in ')
+
+
