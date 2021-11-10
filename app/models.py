@@ -8,8 +8,8 @@ from app import login
 class User(UserMixin, db.Model):
     # dbModel  base class for database models provided by SQLalchamy
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True)
-    email = db.Column(db.String(120), unique=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    email = db.Column(db.String(120), unique=True, index=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
