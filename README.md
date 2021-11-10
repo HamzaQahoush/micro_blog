@@ -454,3 +454,28 @@ class RegistrationForm(FlaskForm):
 ## Chapter 6: Profile Page and Avatars:
 <a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vi-profile-page-and-avatars"> Profile Page and Avatars </a>
 
+## Chapter 7: Error Handling
+  * Sending Errors by Email
+
+<a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vii-error-handling"> Chapter 7: Error Handling</a>
+
+` export FLASK_DEBUG=1 `
+
+## Chapter 8 :   Database Relationships Revisited
+
+* one to many 
+<img src="https://blog.miguelgrinberg.com/static/images/mega-tutorial/ch04-users-posts.png" > 
+
+
+  * <b> Many-to-Many </b> 
+
+consider a database that has students and teachers. I can say that a student has many teachers, and a teacher has many students. It's like two overlapped one-to-many relationships from both ends.
+<img src="https://blog.miguelgrinberg.com/static/images/mega-tutorial/ch08-students-teachers.png" > 
+
+* Many-to-One and One-to-One
+
+A many-to-one is similar to a one-to-many relationship. The difference is that this relationship is looked at from the "many" side.
+
+A one-to-one relationship is a special case of a one-to-many. The representation is similar, but a constraint is added to the database to prevent the "many" side to have more than one link. While there are cases in which this type of relationship is useful, it isn't as common as the other types.
+
+* A **self-referential relationship** in which instances of a class are linked to other instances of the same class is called a self-referential relationship , i.e users following each other.
