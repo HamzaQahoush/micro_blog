@@ -416,6 +416,8 @@ The first and second cases are self-explanatory. The third case is in place to m
 
 
 ### User Registration
+<a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins"> link User Registration </a>
+
 `pip install email-validator
 `
 ```
@@ -448,3 +450,7 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different email address.')
 ```
+
+## Chapter 6: Profile Page and Avatars:
+<a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vi-profile-page-and-avatars"> Profile Page and Avatars </a>
+
