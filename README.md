@@ -140,7 +140,6 @@ def login():
 and with redirect 
 `redirect(url_for('index'))`
 
-
 # Chapter 4 : DataBase# micro_blog
 ### Flask-SQLAlchemy Configuration
 
@@ -198,4 +197,219 @@ The __repr__ method tells Python how to print objects of this class, which is go
 ### Creating the Migration Repository
 
 * to make changes to that structure such as adding new things, and sometimes to modify or remove items. Alembic (the migration framework used by Flask-Migrate) will make these schema changes in a way that does not require the database to be recreated from scratch every time a change needs to be made.
-create the migration repository for microblog by running `flask db init`
+create the migration repository/directory for microblog by running `flask db init`
+
+* to create the first database migration, which will include the users table that maps to the User database model. `flask db migrate -m "anycomment"` .
+* The flask db migrate command does not make any changes to the database, it just generates the migration script. To apply the changes to the database, the `flask db upgrade` command must be used.
+* Note that Flask-SQLAlchemy uses a "snake case" naming convention for database tables by default. For the User model above, the corresponding table in the database will be named user. For a AddressAndPhone model class, the table would be named address_and_phone.
+
+###  Database Upgrade and Downgrade Workflow
+* `flask db downgrade`  --> which undoes the last migration.
+* `flask db histroy`  --> show the history of migration
+* `flask db current ` --> show the current migration .
+
+
+###  Database Relationships 
+
+* Relational databases are good at storing relations between data items. Consider the case of a user writing a blog post. The user will have a record in the users table, and the post will have a record in the posts table. The most efficient way to record who wrote a given post is to link the two related records.
+```
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Post {}>'.format(self.body)
+```
+
+* `posts = db.relationship('Post', backref='author', lazy='dynamic')`.
+* db.relationship :  high-level view of the relationship between users and posts, and for that reason it isn't in the database diagram. For a one-to-many relationship, a db.relationship field is normally defined on the "one" side, and is used as a convenient way to get access to the "many".
+* backref argument defines the name of a field that will be added to the objects of the "many" class that points back at the "one" object.
+* lazy argument defines how the database query for the relationship will be issued.
+* "Post" is the class where we want to which holds the foreign key. 
+
+
+### playing with database
+```
+>>> u = User(username='john', email='john@example.com') -> creating rows in user table
+>>> db.session.add(u)
+>>> db.session.commit()  -> commit changes
+>>> users = User.query.all() -> to get all data in table
+>>> users
+```
+
+## Chapter 5 :Password Hashing
+* One of the packages that implement password hashing is Werkzeug.
+* The whole password hashing logic can be implemented as two new methods in the user model:
+
+
+```
+from werkzeug.security import generate_password_hash, check_password_hash
+
+# ...
+
+class User(db.Model):
+    # ...
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+```
+
+
+ ### Introduction to Flask-Login
+* Flask-Login. This extension manages the user logged-in state, so that for example users can log in to the application and then navigate to different pages while the application "remembers" that the user is logged in. It also provides the "remember me" functionality that allows users to remain logged in even after closing the browser window.
+`$ pip install flask-login`
+* ask-Login needs to be created and initialized right after the application instance in app/__init__.py. This is how this extension is initialized:
+```
+# ...
+from flask_login import LoginManager
+
+app = Flask(__name__)
+# ...
+login = LoginManager(app)
+```
+### user mixin
+* Flask-login requires a User model with the following properties:
+
+* has an is_authenticated() method that returns True if the user has provided valid credentials
+
+* has an is_active() method that returns True if the user’s account is active
+
+* has an is_anonymous() method that returns True if the current user is an anonymous user <br>
+* has a get_id() method which, given a User instance, returns the unique ID for that object <br>
+
+UserMixin class provides the implementation of this properties. Its the reason you can call for example is_authenticated to check if login credentials provide is correct or not instead of having to write a method to do that yourself. <br>
+* Flask-Login provides a mixin class called UserMixin that includes generic implementations that are appropriate for most user model classes. Here is how the mixin class is added to the model:
+```
+# ...
+from flask_login import UserMixin
+
+class User(UserMixin, db.Model):
+    # ...
+```
+
+###   User Loader Function
+* Because Flask-Login knows nothing about databases, it needs the application's help in loading a user. For that reason, the extension expects that the application will configure a user loader function, that can be called to load a user given the ID. This function can be added in the app/models.py module:
+```
+from app import login
+# ...
+
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+   ##an argument is going to be a string, so databases that use numeric IDs need to convert the string to integer 
+```
+### Logging Users In
+filter by: 
+
+For this purpose I'm using the filter_by() method of the SQLAlchemy query object. The result of filter_by() is a query that only includes the objects that have a matching username. Since I know there is only going to be one or zero results, I complete the query by calling first(), which will return the user object if it exists, or None
+
+```
+app/routes.py: Login view function logic
+# ...
+from flask_login import current_user, login_user
+from app.models import User
+
+# ...
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('index'))
+    return render_template('login.html', title='Sign In', form=form)
+
+```
+
+The top two lines in the login() function deal with a weird situation. Imagine you have a user that is logged in, and the user navigates to the /login URL of your application. Clearly that is a mistake, so I want to not allow that. The current_user variable comes from Flask-Login and can be used at any time during the handling to obtain the user object that represents the client of the request. The value of this variable can be a user object from the database (which Flask-Login reads through the user loader callback I provided above), or a special anonymous user object if the user did not log in yet. Remember those properties that Flask-Login required in the user object? One of those was is_authenticated, which comes in handy to check if the user is logged in or not. When the user is already logged in, I just redirect to the index page.
+
+In place of the flash() call that I used earlier, now I can log the user in for real. The first step is to load the user from the database. The username came with the form submission, so I can query the database with that to find the user. For this purpose I'm using the filter_by() method of the SQLAlchemy query object. The result of filter_by() is a query that only includes the objects that have a matching username. Since I know there is only going to be one or zero results, I complete the query by calling first(), which will return the user object if it exists, or None if it does not. In Chapter 4 you have seen that when you call the all() method in a query, the query executes and you get a list of all the results that match that query. The first() method is another commonly used way to execute a query, when you only need to have one result.
+
+If I got a match for the username that was provided, I can next check if the password that also came with the form is valid. This is done by invoking the check_password() method I defined above. This will take the password hash stored with the user and determine if the password entered in the form matches the hash or not. So now I have two possible error conditions: the username can be invalid, or the password can be incorrect for the user. In either of those cases, I flash an message, and redirect back to the login prompt so that the user can try again.
+
+If the username and password are both correct, then I call the login_user() function, which comes from Flask-Login. This function will register the user as logged in, so that means that any future pages the user navigates to will have the current_user variable set to that user.
+
+To complete the login process, I just redirect the newly logged-in user to the index page.
+
+###  Logging Users Out
+
+```
+app/routes.py: Logout view function
+# ...
+from flask_login import logout_user
+
+# ...
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+```
+```
+#edit the base.html to change the sign in to sign out
+
+  {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% else %}
+    <a href="{{ url_for('logout') }}">logout</a>
+
+    {% endif %}
+```
+  ## Requiring Users to Login
+
+If a user who is not logged in tries to view a protected page, Flask-Login will automatically redirect the user to the login form, and only redirect back to the page the user wanted to view after the login process is complete.
+
+
+```
+app/__init__.py:
+
+# ...
+login = LoginManager(app)
+login.login_view = 'login'
+
+in routes.py:
+@login_required
+def index():
+ ...
+```
+
+
+* To handle visiting the page which user want to visit if hasn't sign in
+```
+app/routes.py: Redirect to "next" page
+from flask import request
+from werkzeug.urls import url_parse
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # ...
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
+
+```
+
+*Right after the user is logged in by calling Flask-Login's login_user() function, the value of the next query string argument is obtained. Flask provides a request variable that contains all the information that the client sent with the request. In particular, the request.args attribute exposes the contents of the query string in a friendly dictionary format. There are actually three possible cases that need to be considered to determine where to redirect after a successful login:
+
+If the login URL does not have a next argument, then the user is redirected to the index page.
+If the login URL includes a next argument that is set to a relative path (or in other words, a URL without the domain portion), then the user is redirected to that URL.
+If the login URL includes a next argument that is set to a full URL that includes a domain name, then the user is redirected to the index page.
+The first and second cases are self-explanatory. The third case is in place to make the application more secure. An attacker could insert a URL to a malicious site in the next argument, so the application only redirects when the URL is relative, which ensures that the redirect stays within the same site as the application. To determine if the URL is relative or absolute, I parse it with Werkzeug's url_parse() function and then check if the netloc component is set or not.
