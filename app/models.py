@@ -1,6 +1,12 @@
 from datetime import datetime
+
+from flask_wtf import FlaskForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from wtforms.fields.simple import TextAreaField, SubmitField
+from wtforms.validators import DataRequired, Length
+from sqlalchemy import desc
+
 from app import login, db
 from hashlib import md5
 
@@ -41,7 +47,7 @@ class User(UserMixin, db.Model):
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
-        return followed.union(own).order_by(Post.timestamp.desc())
+        return followed.union(own)
 
     def __repr__(self):
         return f"User {self.username}"
@@ -67,6 +73,9 @@ class Post(db.Model):
     body = db.Column(db.String(164), unique=True)
     time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = datetime.now().timestamp()
 
     def __repr__(self):
         return f"post {self.body}"
+
+

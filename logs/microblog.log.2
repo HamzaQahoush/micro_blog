@@ -1,13 +1,4 @@
-2021-11-10 19:02:12,859 ERROR: Exception on /edit_profile [POST] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
-Traceback (most recent call last):
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1799, in _execute_context
-    self.dialect.do_execute(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
-    cursor.execute(statement, parameters)
-sqlite3.IntegrityError: UNIQUE constraint failed: user.username
-
-The above exception was the direct cause of the following exception:
-
+2021-11-11 14:32:12,956 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
     response = self.full_dispatch_request()
@@ -19,51 +10,88 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 99, in edit_profile
-    db.session.commit()
-  File "<string>", line 2, in commit
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1428, in commit
-    self._transaction.commit(_to_root=self.future)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 829, in commit
-    self._prepare_impl()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 808, in _prepare_impl
-    self.session.flush()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3340, in flush
-    self._flush(objects)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3480, in _flush
-    transaction.rollback(_capture_exception=True)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
-    compat.raise_(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
-    raise exception
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3440, in _flush
-    flush_context.execute()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
-    rec.execute(self)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
-    util.preloaded.orm_persistence.save_obj(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 236, in save_obj
-    _emit_update_statements(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1000, in _emit_update_statements
-    c = connection._execute_20(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1611, in _execute_20
-    return meth(self, args_10style, kwargs_10style, execution_options)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
-    return connection._execute_clauseelement(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1478, in _execute_clauseelement
-    ret = self._execute_context(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
-    self._handle_dbapi_exception(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2023, in _handle_dbapi_exception
-    util.raise_(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
-    raise exception
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1799, in _execute_context
-    self.dialect.do_execute(
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
-    cursor.execute(statement, parameters)
-sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.username
-[SQL: UPDATE user SET username=?, about_me=?, last_seen=? WHERE user.id = ?]
-[parameters: ('HamzaQahoush99', '', '2021-11-10 19:02:12.857195', 3)]
-(Background on this error at: https://sqlalche.me/e/14/gkpj)
-2021-11-10 19:05:14,947 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 33, in index
+    return render_template('index.html', title='Home', form=form,posts=posts)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 925, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/index.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/base.html", line 38, in top-level template code
+    {%  block content %} {% endblock %}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/index.html", line 21, in block 'content'
+    {% include "_post.html" %}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 925, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/_post.html", line 5, in template
+    <a href="{{ url_for('user',username=post.author.username)")}}> {{ post.author.username }} </a> says : <b> {{post.body}}</b>
+jinja2.exceptions.TemplateSyntaxError: unexpected char '"' at 173
+2021-11-11 14:32:14,311 ERROR: Exception on /explore [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 41, in explore
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+AttributeError: 'float' object has no attribute 'desc'
+2021-11-11 14:32:15,949 ERROR: Exception on /explore [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 41, in explore
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+AttributeError: 'float' object has no attribute 'desc'
+2021-11-11 14:32:52,212 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
+2021-11-11 14:32:54,512 ERROR: Exception on /explore [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 42, in explore
+    return render_template('index.html', title='Explore' , posts=posts)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 925, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/index.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/base.html", line 38, in top-level template code
+    {%  block content %} {% endblock %}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/index.html", line 21, in block 'content'
+    {% include "_post.html" %}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 925, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/_post.html", line 5, in template
+    <a href="{{ url_for('user',username=post.author.username)")}}> {{ post.author.username }} </a> says : <b> {{post.body}}</b>
+jinja2.exceptions.TemplateSyntaxError: unexpected char '"' at 173
