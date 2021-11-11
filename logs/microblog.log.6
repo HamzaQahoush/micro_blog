@@ -1,5 +1,4 @@
-2021-11-11 11:51:12,455 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
-2021-11-11 11:51:15,792 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+2021-11-11 12:05:19,352 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
     response = self.full_dispatch_request()
@@ -11,12 +10,27 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 30, in index
-    posts = current_user.followed_posts().all()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/models.py", line 49, in followed_posts
-    return followed.union(own).order_by(Post.timestamp.desc())
-AttributeError: type object 'Post' has no attribute 'timestamp'
-2021-11-11 11:51:17,515 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 33, in index
+    return render_template('index.html', title='Home', posts=posts)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/templating.py", line 148, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 1068, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 997, in get_template
+    return self._load_template(name, globals)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 958, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/loaders.py", line 137, in load
+    code = environment.compile(source, name, filename)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 757, in compile
+    self.handle_exception(source=source_hint)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 925, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/index.html", line 9, in template
+    {{ form.post( col=32 , rows= 4) %} <br>
+jinja2.exceptions.TemplateSyntaxError: unexpected '}'
+2021-11-11 12:05:37,252 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
+2021-11-11 12:05:39,961 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
     response = self.full_dispatch_request()
@@ -28,12 +42,27 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 30, in index
-    posts = current_user.followed_posts().all()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/models.py", line 49, in followed_posts
-    return followed.union(own).order_by(Post.timestamp.desc())
-AttributeError: type object 'Post' has no attribute 'timestamp'
-2021-11-11 11:51:42,260 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 33, in index
+    return render_template('index.html', title='Home', posts=posts)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 925, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/index.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/base.html", line 35, in top-level template code
+    {%  block content %} {% endblock %}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/templates/index.html", line 7, in block 'content'
+    {{  form.hidden_tag() }}
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/jinja2/environment.py", line 474, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'form' is undefined
+2021-11-11 12:07:09,812 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
+2021-11-11 12:07:38,516 ERROR: Exception on / [POST] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
     response = self.full_dispatch_request()
@@ -45,12 +74,11 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 30, in index
-    posts = current_user.followed_posts().all()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/models.py", line 49, in followed_posts
-    return followed.union(own).order_by(Post.timestamp.desc())
-AttributeError: type object 'Post' has no attribute 'timestamp'
-2021-11-11 11:51:42,750 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 28, in index
+    db.commit(post)
+AttributeError: 'SQLAlchemy' object has no attribute 'commit'
+2021-11-11 12:08:26,034 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
+2021-11-11 12:08:33,653 ERROR: Exception on / [POST] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
     response = self.full_dispatch_request()
@@ -62,12 +90,11 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 30, in index
-    posts = current_user.followed_posts().all()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/models.py", line 49, in followed_posts
-    return followed.union(own).order_by(Post.timestamp.desc())
-AttributeError: type object 'Post' has no attribute 'timestamp'
-2021-11-11 11:51:42,915 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 28, in index
+    db.commit()
+AttributeError: 'SQLAlchemy' object has no attribute 'commit'
+2021-11-11 12:12:44,472 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
+2021-11-11 12:12:58,412 ERROR: Exception on / [POST] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
     response = self.full_dispatch_request()
@@ -79,26 +106,7 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 30, in index
-    posts = current_user.followed_posts().all()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/models.py", line 49, in followed_posts
-    return followed.union(own).order_by(Post.timestamp.desc())
-AttributeError: type object 'Post' has no attribute 'timestamp'
-2021-11-11 11:51:47,071 ERROR: Exception on / [GET] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
-Traceback (most recent call last):
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 30, in index
-    posts = current_user.followed_posts().all()
-  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/models.py", line 49, in followed_posts
-    return followed.union(own).order_by(Post.timestamp.desc())
-AttributeError: type object 'Post' has no attribute 'timestamp'
-2021-11-11 11:54:49,768 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
+  File "/Users/hamzaqahosuh/PycharmProjects/microblog/app/routes.py", line 28, in index
+    db.commit()
+AttributeError: 'SQLAlchemy' object has no attribute 'commit'
+2021-11-11 12:14:04,576 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]

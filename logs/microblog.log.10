@@ -1,4 +1,4 @@
-2021-11-10 18:55:55,960 ERROR: Exception on /edit_profile [POST] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
+2021-11-10 19:05:32,280 ERROR: Exception on /edit_profile [POST] [in /Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/Users/hamzaqahosuh/PycharmProjects/microblog/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1799, in _execute_context
     self.dialect.do_execute(
@@ -64,6 +64,5 @@ Traceback (most recent call last):
     cursor.execute(statement, parameters)
 sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.username
 [SQL: UPDATE user SET username=?, about_me=?, last_seen=? WHERE user.id = ?]
-[parameters: ('HamzaQahoush99', '', '2021-11-10 18:55:55.958634', 3)]
+[parameters: ('HamzaQahoush99', '', '2021-11-10 19:05:32.278213', 3)]
 (Background on this error at: https://sqlalche.me/e/14/gkpj)
-2021-11-10 19:01:58,869 INFO: Microblog startup [in /Users/hamzaqahosuh/PycharmProjects/microblog/app/__init__.py:46]
