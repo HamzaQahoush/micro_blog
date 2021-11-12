@@ -479,3 +479,9 @@ A many-to-one is similar to a one-to-many relationship. The difference is that t
 A one-to-one relationship is a special case of a one-to-many. The representation is similar, but a constraint is added to the database to prevent the "many" side to have more than one link. While there are cases in which this type of relationship is useful, it isn't as common as the other types.
 
 * A **self-referential relationship** in which instances of a class are linked to other instances of the same class is called a self-referential relationship , i.e users following each other.
+
+## Bootstrap 
+
+`pip install flask-bootstrap `
+`from flask_bootstrap import Bootstrap`
+`bootstrap = Bootstrap(app)`
